@@ -1,0 +1,3 @@
+"0",""
+"0","miR_t1 <- smalldataM[,1]"
+"0","hist(miR_t1)"

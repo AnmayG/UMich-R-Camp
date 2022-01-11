@@ -1,0 +1,3 @@
+id	filename	md5	size	state
+7c3c4540-a63e-4737-a23d-a9c999c53f39	7c3c4540-a63e-4737-a23d-a9c999c53f39/1f4d0bb9-23e8-4ba0-93cb-8e5efdcfcf9a.mirbase21.isoforms.quantification.txt	fc1bcae5c9d83745571404a7a33cbaff	223893	validated
+b70a538a-a0d7-4a0f-ab48-fd7b4457bfd3	b70a538a-a0d7-4a0f-ab48-fd7b4457bfd3/b8a56619-9b99-4045-b747-b1e595c6f506.mirbase21.isoforms.quantification.txt	bd23c84c122a5278e71cf99c87ec9049	258290	validated

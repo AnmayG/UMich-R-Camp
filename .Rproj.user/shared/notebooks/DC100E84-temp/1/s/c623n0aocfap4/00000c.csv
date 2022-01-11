@@ -1,0 +1,28 @@
+"0","barplot(vca,"
+"0","        main = ""miR_a Reads in Control Samples"","
+"0","        xlab=""Sample ID"","
+"0","        ylab=""Number of Reads"","
+"0","        names.main=colnames(smalldataM)[1:20],"
+"0","        ylim=c(0,356000),"
+"0","        las=2,"
+"0","        cex.names=0.5)"
+"2","Warning in plot.window(xlim, ylim, log = log, ...) :"
+"2","
+ "
+"2"," ""names.main"" is not a graphical parameter
+"
+"2","Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty = axis.lty,  :"
+"2","
+ "
+"2"," ""names.main"" is not a graphical parameter
+"
+"2","Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...) :"
+"2","
+ "
+"2"," ""names.main"" is not a graphical parameter
+"
+"2","Warning in axis(if (horiz) 1 else 2, cex.axis = cex.axis, ...) :"
+"2","
+ "
+"2"," ""names.main"" is not a graphical parameter
+"

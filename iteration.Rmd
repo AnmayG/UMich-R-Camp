@@ -1,0 +1,184 @@
+---
+title: "iteration"
+author: "Anmay Gupta"
+date: "7/19/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## miRcore R camp week 2 day 1
+
+## Review
+
+read smalldata
+
+```{r}
+smalldata <- read.table("small_data.txt", 
+                        header = 1, 
+                        row.names = 1, 
+                        stringsAsFactors = F)
+```
+
+## have matrix related to smalldata
+
+```{r}
+smalldataM <- as.matrix(smalldata)
+```
+
+## select columns or rows
+
+```{r}
+miR_a <- smalldataM["miR_a",]
+miR_a
+miR_b <- smalldataM["miR_b",]
+miR_b
+```
+
+## scatter plot
+
+```{r}
+plot(miR_a, miR_b)
+```
+
+## select multiple rows
+
+```{r}
+m_smalldataM <- smalldataM[c("miR_a", "miR_b", "miR_k"),]
+```
+
+## let's make a pheatmap
+
+### load library
+```{r}
+library(pheatmap)
+```
+
+### log transform
+
+```{r}
+m_smalldataH <- log2(m_smalldataM + 1)
+```
+ 
+## make a heatmap
+
+```{r}
+pheatmap(m_smalldataH, scale = "row", cluster_cols = F)
+```
+
+## t-test
+
+```{r}
+tum <- smalldataM["miR_a", colnames(smalldataM)[grepl("Tumor", colnames(smalldataM))]]
+con <- smalldataM["miR_a", colnames(smalldataM)[grepl("Control", colnames(smalldataM))]]
+```
+
+```{r}
+options(scipen=10)
+t.test(tum, con)
+t.test(tum, con)$p.val
+```
+
+Iteration
+
+```{r}
+for(i in 1:100){
+  print(paste0("my favorite number is ", i))
+}
+```
+
+```{r}
+for(k in 1:10){
+  print(k)
+}
+```
+
+```{r}
+N = vector()
+for(k in 1:10){
+  N <- c(N,k) # combine N with k
+}
+N
+```
+
+```{r}
+new_header <- vector()
+for(i in 1:10){
+  new_header <- c(new_header, paste0("name_", i))
+}
+new_header
+```
+
+## if statements
+
+```{r}
+new_header <- vector()
+for(i in 1:10){
+  if(i < 5){
+    new_header <- c(new_header, paste0("name_", i))
+  }else if(i > 8){
+    new_header <- c(new_header, paste0("name_2", i))
+  }else{
+    new_header <- c(new_header, paste0("name_1", i))
+  }
+}
+new_header
+```
+
+## t tests on some smalldata
+
+```{r}
+tests <- vector()
+diffdata <- data.frame()
+for(i in rownames(smalldata)){
+  tum <- smalldata[i, grepl("Tumor", colnames(smalldata))]
+  con <- smalldata[i, grepl("Control", colnames(smalldata))]
+  pval <- t.test(tum, con)$p.val
+  tests <- c(tests, pval)
+  if(pval < 0.0001){
+    diffdata <- rbind.data.frame(diffdata, smalldata[i,])
+  }
+}
+```
+
+```{r}
+head(diffdata)
+rownames(diffdata)
+```
+
+```{r}
+smalldatanew <- as.matrix(smalldata)
+ttest <- data.frame()
+ratio <- vector()
+updata <- data.frame()
+for(i in 1:nrow(smalldatam)){
+  tum <- as.numeric(smalldatanew[i, grepl("Tumor", colnames(smalldatanew))])
+  con <- as.numeric(smalldatanew[i, grepl("Control", colnames(smalldatanew))])
+  pval <- t.test(tum, con)$p.val
+  if(pval < 0.00001){
+    ttest <- rbind.data.frame(ttest, smalldatanew[i,])
+  }
+  tumor_mean <- mean(tum)
+  control_mean <- mean(con)
+  ratio <- c(ratio, tumor_mean/control_mean)
+  if(tumor_mean > control_mean){
+    updata <- rbind.data.frame(updata, smalldatanew[i,])
+  }
+}
+smalldatam <- cbind.data.frame(smalldatam, ratio)
+ttest
+updata
+```
+
+
+
+
+
+
+
+
+
+
+

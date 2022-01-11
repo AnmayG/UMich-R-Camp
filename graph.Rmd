@@ -1,0 +1,220 @@
+---
+title: "graph"
+author: "Anmay Gupta"
+date: "7/15/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# miRcore R Camp Day 4
+
+## graphs
+
+random data
+
+```{r}
+sample(c(1,2,3,23,5), 2, replace=T)
+```
+
+```{r}
+sample(seq(from=2, to=50, by=2), 100, replace=T)
+```
+
+bar graph
+
+```{r}
+barplot(sample(1:50, 100, replace=T))
+```
+
+```{r}
+barplot(sample(c(1,2,3,23,5), 2, replace=F), 
+        main = "Graph Title", 
+        xlab = "x-label",
+        ylab = "y-label")
+```
+
+## add more arguments
+
+```{r}
+barplot(sample(c(1,2,3,23,5), 4, replace=T),
+        main="Hogwarts", 
+        xlab="Houses", 
+        ylab="Points",
+        names.arg=c("Slytherine", 
+                    "Griffindor", 
+                    "Ravenclaw", 
+                    "Hufflepuff"),
+        col=c("Green", 
+              "Red", 
+              "Blue", 
+              "Yellow"),
+        legend.text=c("S", "G", "R", "H"))
+```
+
+multiple graphs
+
+```{r}
+par(mfrow=c(2,1))
+barplot(sample(1:25, 4, replace=T),
+        main="Game 1",
+        col=c("Green", "Red", "Blue", "Yellow"))
+barplot(sample(1:25, 4, replace=T),
+        main="Game 2",
+        col=c("Light Blue", "Purple", "Pink", "Dark Green"))
+```
+
+```{r}
+par(mfrow=c(2,1))
+barplot(sample(1:30, 4, replace=T),
+        main="Game 1",
+        col=c("Green", "Red", "Blue", "Yellow"),
+        ylim=c(1,30))
+barplot(sample(1:30, 4, replace=T),
+        main="Game 2",
+        col=c("Light Blue", "Purple", "Pink", "Dark Green"),
+        ylim=c(1,40))
+```
+
+```{r}
+small_data <- read.table("small_data.txt", header=1, row.names=1, stringsAsFactors = F)
+smalldataM <- as.matrix(small_data)
+```
+
+
+```{r}
+vaa <- smalldataM[1,]
+vta <- smalldataM[1,1:10]
+vca<- smalldataM[1,11:20]
+barplot(vaa,
+        main = "miR_a Reads",
+        xlab="Tumor ID",
+        ylab="Number of Reads",
+        names.arg=colnames(smalldataM)[1:20],
+        ylim=c(0,356000),
+        las=2,
+        cex.names=0.5,
+        cex.axis=0.7,
+        col=rainbow(10))
+
+par(mfrow=c(1,2))
+
+barplot(vta,
+        main = "miR_a Reads in Tumor Samples",
+        xlab="Tumor ID",
+        ylab="Number of Reads",
+        names.arg=colnames(smalldataM)[1:10],
+        ylim=c(0,356000),
+        las=2,
+        cex.names=0.5,
+        cex.axis=0.7,
+        col=rainbow(10))
+
+barplot(vca,
+        main = "miR_a Reads in Control Samples",
+        xlab="Sample ID",
+        ylab="Number of Reads",
+        names.arg=colnames(smalldataM)[11:20],
+        ylim=c(0,356000),
+        las=2,
+        cex.names=0.5,
+        cex.axis=0.7,
+        col=rainbow(10))
+```
+
+Scatter plot
+
+```{r}
+plot(1:5,10:14)
+```
+
+```{r}
+plot(sample(1:100,50,replace=F), 
+     sample(30:400,50,replace=T))
+```
+
+```{r}
+hist(rnorm(1000,mean=1,sd=1), 
+     col=rainbow(13))
+```
+
+
+options not to use scientific notation
+
+```{r}
+options(scipen = 10)
+```
+
+real data
+
+```{r}
+vca <- smalldataM[1,11:20]
+vta <- smalldataM[1,1:10]
+plot(vca,vta)
+```
+
+histogram
+
+```{r}
+hist(sample(100,10000,replace=T), breaks=100)
+```
+
+```{r}
+vac <- smalldataM[3,]
+hist(vac)
+
+miR_t1 <- smalldataM[,1]
+hist(miR_t1)
+
+log_miR_t1 <- log2(miR_t1)
+hist(log_miR_t1)
+```
+
+## box plot
+
+```{r}
+boxplot(sample(1:100, 1000, replace=T))
+```
+
+```{r}
+t2s <- smalldataM[,2]
+boxplot(t2s)
+```
+
+why log?
+
+```{r}
+t2s_log <- log10(t2s+1)
+boxplot(t2s_log)
+```
+
+```{r}
+boxplot(small_data)
+```
+
+
+```{r}
+boxplot(log2(small_data[c(1:3,11:13)]+1),
+        col=rainbow(6),
+        main="Log Transform of Tumors 1-3 and Controls 1-3",
+        xlab="Sample ID",
+        ylab="Reads")
+```
+
+
+```{r}
+par(mfrow=c(2,1))
+
+boxplot.matrix(log2(smalldataM[,1:10] + 1), 
+               use.cols=FALSE, 
+               col=rainbow(20))
+
+boxplot.matrix(log2(smalldataM[,11:20] + 1), 
+               use.cols=FALSE, 
+               col=rainbow(20))
+```
+
+
+

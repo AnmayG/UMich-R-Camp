@@ -1,0 +1,19 @@
+"0",""
+"0","boxplot.matrix(log10(smalldataM[,11:20]), "
+"0","               use.cols=FALSE, "
+"0","               col=rainbow(20))"
+"2","Warning in bplt(at[i], wid = width[i], stats = z$stats[, i], out = z$out[z$group ==  :"
+"2","
+ "
+"2"," Outlier (-Inf) in boxplot 16 is not drawn
+"
+"2","Warning in bplt(at[i], wid = width[i], stats = z$stats[, i], out = z$out[z$group ==  :"
+"2","
+ "
+"2"," Outlier (-Inf) in boxplot 17 is not drawn
+"
+"2","Warning in bplt(at[i], wid = width[i], stats = z$stats[, i], out = z$out[z$group ==  :"
+"2","
+ "
+"2"," Outlier (-Inf) in boxplot 19 is not drawn
+"

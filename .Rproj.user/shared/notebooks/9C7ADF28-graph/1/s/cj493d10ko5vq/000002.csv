@@ -1,0 +1,4 @@
+"0","par(mfrow=c(2,1))"
+"0","barplot(sample(1:25, 4, replace=T),"
+"0","        main=""Game 1"","
+"0","        col=c(""Green"", ""Red"", ""Blue"", ""Yellow""))"

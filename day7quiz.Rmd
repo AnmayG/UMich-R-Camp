@@ -1,0 +1,56 @@
+---
+title: "miRcore R camp day 7 quiz"
+author: "Anmay Gupta"
+date: "7/20/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+smalldata <- read.table("small_data.txt", 
+                        header=1, 
+                        row.names=1, 
+                        stringsAsFactors = F)
+plot(smalldata[,"Control_1"], smalldata[,"Tumor_1"])
+```
+
+```{r}
+options(scipen = 10)
+barplot(log2(smalldata[,"Tumor_3"]+1))
+```
+
+```{r}
+boxplot(log2(smalldata[c("miR_a", "miR_b", "miR_c"), c("Tumor_1", "Tumor_5", "Tumor_7", "Control_1", "Control_5", "Control_7")] + 1),
+        col = c("green", "green", "green", "blue", "blue", "blue"),
+        xlab = "Samples(Tumor/Control)",
+        ylab = "Expression of miR_a, miR_b, miR_c")
+```
+
+
+```{r}
+library(pheatmap)
+smalldataM <- as.matrix(smalldata[,c(1:5, 11:16)])
+smalldataH <- log2(smalldataM+1)
+
+pheatmap(smalldataH, scale="row", cluster_cols=F, 
+         color = colorRampPalette(c("navy", "white", "firebrick3"))(256))
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

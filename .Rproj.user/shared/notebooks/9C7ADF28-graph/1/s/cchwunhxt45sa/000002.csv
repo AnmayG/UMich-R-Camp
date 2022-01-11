@@ -1,0 +1,2 @@
+"0","hist(rnorm(1000,mean=1,sd=1), "
+"0","     col=rainbow(13))"

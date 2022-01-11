@@ -1,0 +1,4 @@
+"0","barplot(sample(c(1,2,3,23,5), 2, replace=F), "
+"0","        main = ""Graph Title"", "
+"0","        xlab = ""x-label"","
+"0","        ylab = ""y-label"")"

@@ -1,0 +1,5 @@
+"0","lihc_data <- read.table(""LIHC.txt"", "
+"0","                        header = 1, "
+"0","                        row.names = 1, "
+"0","                        stringsAsFactors = F)"
+"0","lihc_dataM <- as.matrix(lihc_data)"

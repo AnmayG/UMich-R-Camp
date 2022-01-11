@@ -1,0 +1,4 @@
+"0","smalldata <- read.table(""small_data.txt"", "
+"0","                        header = 1, "
+"0","                        row.names = 1, "
+"0","                        stringsAsFactors = F)"

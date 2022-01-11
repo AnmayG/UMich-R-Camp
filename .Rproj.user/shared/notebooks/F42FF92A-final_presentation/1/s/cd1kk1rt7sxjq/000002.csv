@@ -1,0 +1,4 @@
+"0","rownames(lihc_miR_data) <- c(rep(""Tumor"", 49), rep(""Control"", 49))
+"
+"2","Error in `.rowNamesDF<-`(x, value = value) : invalid 'row.names' length
+"

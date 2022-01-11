@@ -1,0 +1,195 @@
+---
+title: "miRcore R camp TCGA Group Task"
+author: "[Group Name Here]"
+date: "July 21, 2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(message = FALSE)
+knitr::opts_chunk$set(warning = FALSE)
+
+```
+
+# miRcore summer camp 2021
+© miRcore
+
+
+## Disease Information
+
+What is the significance ((background and problems) of the disease you are analyzing?
+
+
+
+## Reading in Data
+
+Read in the cancer miRNA expression text file that you downloaded from the Google Drive
+
+```{r}
+lihc_data <- read.table("LIHC.txt", 
+                        header = 1, 
+                        row.names = 1, 
+                        stringsAsFactors = F)
+lihc_dataM <- as.matrix(lihc_data)
+```
+
+A. What are the dimensions of your text file?
+
+The LIHC data has dimensions of `r dim(lihc_data)`.
+
+B. How many Tumor and Control samples are in your dataset?
+
+There are `r sum(grepl("Tumor", colnames(lihc_data)))` tumor samples and `r sum(grepl("Control", colnames(lihc_data)))` control samples.
+
+## Plotting
+
+B. Make a scatterplot for hsa-miR-200a-3p and hsa-miR-429 using all
+samples in your data file. Then compute the Pearson correlation. 
+
+```{r}
+plot(log10(lihc_dataM["hsa-miR-200a-3p",] + 1),
+     xlab = "Sample Number")
+cor(lihc_dataM["hsa-miR-200a-3p", 1:49], lihc_dataM["hsa-miR-200a-3p", 50:98])
+```
+
+```{r}
+plot(log10(lihc_dataM["hsa-miR-429",] + 1),
+     xlab = "Sample Number")
+cor(lihc_dataM["hsa-miR-429", 1:49], lihc_dataM["hsa-miR-429", 50:98])
+```
+
+## T Tests
+
+A. For each miRNA: calculate mean, standard deviation, and the 2-tail student t-test p-value of Tumor and Control groups. Save all results in a table.
+
+```{r}
+name <- vector()
+m <- vector()
+sd <- vector()
+pval <- vector()
+ratio <- vector()
+for(miRNA in rownames(lihc_dataM)){
+  miR_row <- lihc_dataM[miRNA,]
+  m <- c(m, mean(miR_row))
+  sd <- c(sd, sd(miR_row))
+  pval <- c(pval, t.test(miR_row[1:49], miR_row[50:98])$p.val)
+  ratio <- c(ratio, mean(miR_row[1:49])/mean(miR_row[50:98]))
+}
+results <- as.data.frame(cbind(m, sd, pval, ratio))
+rownames(results) <- rownames(lihc_dataM)
+rmarkdown::paged_table(results)
+```
+
+B.  Find 50 most significantly different miRNA names between tumor and control samples and save their names with means, standard deviations for tumor and control samples and p-values.
+
+```{r}
+sorted_results <- results[order(results$pval),]
+sig_miRNA <- lihc_dataM[rownames(sorted_results[1:50,]),]
+```
+
+The 50 most significantly different miRNAs are:
+
+```{r, echo=FALSE}
+paste(rownames(sig_miRNA), sep=", ")
+```
+
+C. Make a heatmap of 50 most signficantly differently expressed miRNAs (row clustering only). Use the colors blue,
+white and red. [USA!USA!USA!].
+
+```{r}
+library(pheatmap)
+pheatmap(sig_miRNA, 
+         scale        = "row",
+         cluster_cols = F,
+         main         = "Heatmap of 50 most significant miRNAs",
+         color        = colorRampPalette(c("blue", "white", "red"))(256))
+```
+
+
+## Correlations
+
+A. Find correlations between the most significant miRNA with 29 other miRNAs for 1) all samples.
+
+```{r}
+correlations <- data.frame()
+corre <- vector()
+miR <- vector()
+most_sig <- sig_miRNA[1,]
+for(i in 2:30){
+  corre <- c(corre, cor(most_sig, sig_miRNA[i,]))
+  rownames(sig_miRNA[i,])
+  miR <- c(miR, rownames(sig_miRNA)[i])
+}
+correlations <- cbind.data.frame(corre, miR)
+rownames(correlations) <- 1:nrow(correlations)
+rmarkdown::paged_table(correlations)
+```
+
+B. Among A. can you find some patterns between miRNAs? What are your findings? (example: to find the most correlated miRNA with the most significant miRNA)
+
+The most correlated miRNA with the most significant miRNA is `r correlations[which.max(correlations[,1]), 2]` with a correlation of `r correlations[which.max(correlations[,1]), 1]`.
+
+The least correlated miRNA with the most significant miRNA is **`r correlations[which.min(correlations[,1]), 2]`** with a correlation of `r correlations[which.min(correlations[,1]), 1]`.
+
+## Random Forest (Bonus)
+
+A. Create a random forest using the steps from the random forest .html file to classify your data. What is your accuracy?
+
+```{r}
+library(randomForest)
+lihc_miR_data <- read.table("LIHC.txt", header = T, row.names = 1, stringsAsFactors = F)
+lihc_miR_data <- as.data.frame(lihc_miR_data)
+conditions <- rownames(lihc_miR_data)
+rownames(lihc_miR_data) <- c(rep("Tumor", 49), rep("Control", 49))
+brca_miR_data <- cbind(conditions, brca_miR_data)
+```
+
+
+B. Change variables in the random forest run and check if the results are different. What are the parameters that you can achieve a better accuracy?
+
+
+
+## Analysis
+
+### miRNAs
+
+What are your most significant miRNAs? Are they up-regulated or down-regulated? Are they highly correlated with each other?
+
+```{r, echo=FALSE}
+sorted_correlations <- correlations[order(correlations$corre, decreasing=T),]
+miRNA_correlations <- sorted_correlations[,2]
+```
+
+My most significant miRNAs are `r miRNA_correlations[1]`, `r miRNA_correlations[2]`, and  `r miRNA_correlations[3]`.
+
+`r miRNA_correlations[1]` has a correlation value of `r results[match(miRNA_correlations[1], rownames(results)), "ratio"]`, so it is up-regulated.
+
+`r miRNA_correlations[2]` has a pval value of `r results[match(miRNA_correlations[2], rownames(results)), "ratio"]`, so it is up-regulated.
+
+`r miRNA_correlations[3]` has a pval value of `r results[match(miRNA_correlations[3], rownames(results)), "ratio"]`, so it is up-regulated.
+
+### Genes
+
+A. What are the common gene targets of your significant miRNAs?
+
+
+B. Are any of your genes targeted by these top miRNAs known mutations of the disease you are researching?
+
+
+## Conclusion
+
+What do your findings suggest to you about potential diagnosis/treatment targets for the disease you are researching?
+
+
+
+## Optional
+
+
+A. Make a heatmap of all data (row clustering only). Use the colors blue, white and red. [USA!USA!USA!].
+
+
+B. find all correlations among the 30 most significant miRNAs for
+1) all samples, 2) all tumor samples, 3) all control samples.
+
+

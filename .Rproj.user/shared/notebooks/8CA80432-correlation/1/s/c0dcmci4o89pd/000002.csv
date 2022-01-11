@@ -1,0 +1,6 @@
+"0","miR_a <- log2(smalldataM[1,])"
+"0","miR_c <- log2(smalldataM[3,])"
+"0","miR_k <- log2(smalldataM[11,])"
+"0",""
+"0","par(mfrow=c(1,2))"
+"0","plot(miR_a, miR_c)"

@@ -1,0 +1,2 @@
+"0","colnames(brca_miR_data) <- gsub(""-"",""."",colnames(brca_miR_data))"
+"0","train_data <- brca_miR_data[train_samples,]"

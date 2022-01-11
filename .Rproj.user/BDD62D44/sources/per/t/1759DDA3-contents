@@ -1,0 +1,284 @@
+---
+title: "vector"
+author: "Anmay Gupta"
+date: "7/13/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+library(tidyverse)
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## miRcore R camp week 1 day 2
+
+### simple calculation
+
+```{r}
+a <- 2
+b <- 3
+a+b
+a^b
+a/b
+a*b
+```
+
+### factor
+
+all the same datatype
+
+```{r}
+1:5
+vec1 <- 1:5
+c(1,8,6,2,4)
+vec2 <- c(1,8,6,2,4)
+seq(from=2, to=20, by=2)
+vec3 <- seq(from=2, to=20, by=2)
+vec4 <- scan(what = numeric()) # can use if you want to copy-paste in values
+```
+
+### vector element
+[]
+
+```{r}
+vec2==1
+```
+
+### mixture
+
+```{r}
+mix <- c(1, 2, 3, 4, 'five')
+str(mix)
+mix2 <- as.numeric(mix)
+str(mix2)
+```
+
+### more calculation
+
+```{r}
+mix2[1]+mix2[2]+mix2[3]+mix2[4]
+sum(mix2)
+sum(mix2, na.rm = TRUE)
+mean(mix2, na.rm = T)
+sd(mix2, na.rm = T)
+```
+
+### which
+
+```{r}
+which(vec3==4)
+append(vec3, 2)
+vec3[-vec3[[2]]]
+```
+
+### matrix
+
+```{r}
+M1 <- matrix(c(3,7,4,2,5,9), nrow=2, ncol=3)
+M1
+M1[1,1]
+M1[1,2]
+M1[,1] - M1[,2]
+M1[,3]
+```
+
+Setup for binds 
+
+```{r}
+a.vec <- c(2,4,6)
+b.vec <- c(3,5,7)
+```
+
+column bind
+
+```{r}
+M2 <- cbind(a.vec, b.vec)  #combine two vectors as columns
+M2
+```
+
+row bind
+
+```{r}
+M3 <- rbind(a.vec, b.vec) #combine two vectors as rows
+M3[2,1]
+M3[2,]
+M3[,1]
+M3[1:2,]
+```
+
+## data frame
+
+```{r}
+numbers <- 11:14
+letters <- c('a','b','c','d')
+group <- as.factor(c(1,0,0,1))
+numbers
+letters
+group
+```
+
+```{r}
+my_data <- cbind.data.frame(numbers,letters,group)
+my_data
+```
+
+have specific items
+
+```{r}
+colnames(my_data)
+row.names(my_data)
+```
+
+```{r}
+row.names(my_data) <- c("A","B","C","D")
+my_data
+```
+
+access column data
+```{r}
+my_data[,2]
+```
+
+```{r}
+my_data[,"letters"]
+```
+
+```{r}
+my_data$letters
+```
+
+access row data
+
+```{r}
+my_data[3,]
+```
+
+```{r}
+my_data["C",]
+```
+
+Group Task
+
+Find the element value of 2nd row and 3rd column of mydata (dataframe).
+Get all data from first row of mydata.
+Get a vector having data from first three rows of the second column of mydata.
+Get first three values of the column name of “numbers” in mydata.
+Get the 2nd column value of the row(s) where column “numbers”=3
+Get the row name where column name of “numbers”=3
+
+```{r}
+my_data[2,3]
+my_data[1,]
+my_data[1:3,2]
+my_data[1:3,"numbers"]
+my_data[numbers==13,][,2]
+colnames(my_data[numbers==13,])
+```
+
+## read
+
+```{r}
+small_data <- read.table("small_data.txt", header=1, row.names=1, stringsAsFactors = F)
+small_data
+```
+
+check
+
+```{r}
+dim(small_data)
+str(small_data)
+```
+
+questions
+
+```{r}
+colnames(small_data)
+row.names(small_data)
+```
+
+```{r}
+str(colnames(small_data))
+str(rownames(small_data))
+```
+
+```{r}
+vr <- row.names(small_data)
+vc <- colnames(small_data)
+```
+
+## grep
+
+```{r}
+vc
+grep("Control", vc) # returns index of things with "Control"
+```
+
+```{r}
+vr
+grep("miR_b", vr) # returns index of things with "miR_b"
+```
+
+## read columns of my smalldata
+
+```{r}
+cindices <- grep("Control", vc)
+small_data[,cindices]
+```
+
+```{r}
+tindices <- grep("Tumor", vc)
+small_data[,tindices]
+```
+
+## make a new dataframe from small_data
+
+```{r}
+Tumor1 <- small_data$Tumor_1
+Control1 <- small_data$Control_1
+Tumor1
+Control1
+```
+
+```{r}
+Tum1_Con1 <- cbind.data.frame(Tumor1, Control1)
+Tum1_Con1
+```
+
+```{r}
+row.names(Tum1_Con1) <- row.names(small_data)
+row.names(Tum1_Con1)
+```
+
+calculation of vectors
+
+```{r}
+diff <- Tumor1 - Control1
+diff
+```
+
+```{r}
+Tum1_Con1$diff <- diff
+Tum1_Con1
+```
+
+```{r}
+Tum1_Con1$Ratio <- Tumor1/Control1
+gt(Tum1_Con1)
+row.names(Tum1_Con1[Tum1_Con1$Ratio < 1,])
+```
+
+Write table
+
+```{r}
+write.table(Tum1_Con1, file="sample1_data.txt", sep="\\t", col.names = NA)
+```
+
+```{r}
+is.matrix(small_data)
+smalldata_matrix <- as.matrix(small_data)
+is.matrix(smalldata_matrix)
+```
+
+
+
+

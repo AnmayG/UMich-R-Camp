@@ -1,0 +1,180 @@
+---
+title: "correlation heatmap"
+author: "Anmay Gupta"
+date: "7/16/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# miRcore camp day 5
+
+read smalldata
+
+```{r}
+smalldata <- read.table("small_data.txt", header=1, row.names=1, stringsAsFactors = F)
+```
+
+change dataframe to matrix
+
+```{r}
+smalldataM <- as.matrix(smalldata)
+smalldataM
+```
+
+make vectors
+
+```{r}
+miR_a <- smalldataM[1,]
+miR_t <- smalldataM[20,]
+miR_a
+miR_t
+```
+
+make a scatter plot
+
+```{r}
+lo <- loess(miR_t ~ miR_a)
+plot(miR_a, miR_t)
+lines(predict(loess(miR_t ~ miR_a)))
+```
+
+scatter plots for tumor and control
+
+```{r}
+t1 <- log2(smalldataM[,1] + 1)
+t10 <- log2(smalldataM[,10] + 1)
+c1 <- log2(smalldataM[11,] + 1)
+c10 <- log2(smalldataM[20,] + 1)
+
+par(mfrow = c(1, 3))
+plot(t1, t10,
+     xlab="Tumor 1",
+     ylab="Tumor 10")
+plot(t1, c1, 
+     xlab="Tumor 1", 
+     ylab="Control 1")
+plot(c1, c10, 
+     xlab="Control 1", 
+     ylab="Control 10")
+```
+
+## correlation
+
+```{r}
+x <- c(5.1, 4.9, 4.7, 4.6, 5.0, 5.4)
+y <- c(3.5, 3.0, 3.2, 3.1, 3.6, 3.9)
+plot(x, y)
+cor(x, y)
+```
+
+correlation is not causation
+
+## breakout room
+
+```{r}
+miR_a <- log2(smalldataM[1,] + 1)
+miR_c <- log2(smalldataM[3,] + 1)
+miR_k <- log2(smalldataM[11,] + 1)
+
+par(mfrow=c(1,2))
+
+plot(miR_a, miR_c,
+     main="Correlation of miR_a & miR_c")
+text(15.1, 9.5, paste0("Cor: ", prettyNum(cor(miR_a, miR_c))), cex=0.7)
+
+plot(miR_a, miR_k,
+     main="Correlation of miR_a & miR_k")
+text(15.1, 13.6, paste0("Cor: ", prettyNum(cor(miR_a, miR_k))), cex=0.7)
+```
+
+## heatmap
+
+download pheatmap
+
+```{r}
+library(pheatmap)
+```
+
+log transform to make info a little bit more pronounced
+
+```{r}
+smalldataH <- log2(smalldataM + 1)
+smalldataH
+```
+
+select miR_a, miR_c, miR_k values
+
+```{r}
+m_smalldataH <- smalldataH[c("miR_a", "miR_c", "miR_k"),]
+m_smalldataH
+```
+
+make heatmap
+
+```{r}
+pheatmap(m_smalldataH, 
+         scale        = "row",
+         cluster_cols = F,
+         main         = "Heatmap of miR_a, miR_c, and miR_k correlations")
+```
+
+change heatmap
+
+```{r}
+pheatmap(m_smalldataH, 
+         scale        = "row",
+         cluster_cols = F,
+         main         = "Heatmap of miR_a, miR_c, and miR_k correlations",
+         color        = colorRampPalette(c("navy", "white", "firebrick3"))(256))
+cor(miR_a, miR_c)
+cor(miR_a, miR_k)
+cor(miR_c, miR_k)
+```
+
+## t-test
+
+```{r}
+x <- c(5.1, 4.9, 4.7, 4.6, 5.0, 5.4, 4.6, 5.0, 4.4, 4.9, 5.4, 4.8, 4.3, 5.8)
+y <- c(3.5, 3.0, 3.2, 3.1, 3.6, 3.9, 3.4, 2.9, 3.1, 3.7, 3.4, 3.0, 3.0, 4.0)
+
+t.test(x, y) # high t value = low p value
+
+t.test(x,y)$p.val # p value
+```
+
+## breakout room
+
+```{r}
+miR_a <- smalldataM[1,]
+
+miR_a_t <- miR_a[1:10]
+mean(miR_a_t)
+sd(miR_a_t)
+
+miR_a_c <- miR_a[11:20]
+mean(miR_a_c)
+sd(miR_a_c)
+
+t.test(miR_a_t, miR_a_c)$p.val
+
+t.test(miR_a_t, miR_a_c)
+
+log2(mean(miR_a_t)/mean(miR_a_c))
+
+# miR_a is downregulated in the tumor because the average value is less.
+```
+
+
+
+
+
+
+
+
+
+
+
+

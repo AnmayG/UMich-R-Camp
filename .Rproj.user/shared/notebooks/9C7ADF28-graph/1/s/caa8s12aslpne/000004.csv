@@ -1,0 +1,5 @@
+"0","boxplot(log2(small_data[c(1:3,11:13)]+1),"
+"0","        col=rainbow(6),"
+"0","        main=""Log Transform of Tumors 1-3 and Controls 1-3"","
+"0","        xlab=""Sample ID"","
+"0","        ylab=""Reads"")"

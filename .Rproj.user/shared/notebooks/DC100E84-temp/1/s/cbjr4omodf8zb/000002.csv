@@ -1,0 +1,2 @@
+"0","cindices <- grep(""Control"", vc)"
+"0","small_data[,cindices]"

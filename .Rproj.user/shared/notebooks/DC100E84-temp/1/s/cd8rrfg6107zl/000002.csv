@@ -1,0 +1,2 @@
+"0","tindices <- grep(""Tumor"", vc)"
+"0","small_data[,tindices]"

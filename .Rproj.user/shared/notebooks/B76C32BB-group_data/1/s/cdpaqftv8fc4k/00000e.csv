@@ -1,0 +1,15 @@
+"0","pheatmap(sig_myData2, scale = ""row"", cluster_cols = F)
+"
+"2","Warning in min(x, na.rm = T) :"
+"2","
+ "
+"2"," no non-missing arguments to min; returning Inf
+"
+"2","Warning in max(x, na.rm = T) :"
+"2","
+ "
+"2"," no non-missing arguments to max; returning -Inf
+"
+"2","Error in seq.default(-m, m, length.out = n + 1) : 
+  'from' must be a finite number
+"

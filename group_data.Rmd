@@ -1,0 +1,63 @@
+---
+title: "group_data"
+author: "Anmay Gupta"
+date: "7/19/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+## group junk
+
+```{r}
+myData2 <- read.table("full_BRCA_miR_data.txt", 
+                      header=1, 
+                      row.names = 1, 
+                      stringsAsFactors = F)
+myData2
+cor(myData2[,"Tumor_1"], myData2[,"Tumor_84"])
+cor(myData2[,"Tumor_1"], myData2[,"Control_1"])
+
+plot(myData2[,"Tumor_1"], myData2[,"Tumor_84"])
+plot(myData2[,"Tumor_1"], myData2[,"Control_1"])
+
+pvals <- vector()
+indices <- vector()
+for(i in 1:nrow(myData2)){
+  pval <- t.test(myData2[i,grep("Tumor", colnames(myData2))],
+                 myData2[i,grep("Control", colnames(myData2))],)$p.val
+  pvals <- c(pvals, pval)
+  if(!is.na(pval) & pval < 0.00001){
+      indices <- c(indices, i)
+  }
+}
+pvals
+
+Full2R <- data.frame(pvals, row.names = rownames(myData2))
+sig_myData2 <- data.frame(Full2R[-indices,])
+write.table(sig_myData2, "significant_Ttest_results.txt")
+
+library(pheatmap)
+sig_myData2 <- na.omit(sig_myData2)
+pheatmap(sig_myData2, scale = "row", cluster_cols = F)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

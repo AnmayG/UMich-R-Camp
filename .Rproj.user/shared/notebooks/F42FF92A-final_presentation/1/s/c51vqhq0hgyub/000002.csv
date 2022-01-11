@@ -1,0 +1,16 @@
+"0","results <- data.frame()"
+"0","name <- vector()"
+"0","m <- vector()"
+"0","sd <- vector()"
+"0","pval <- vector()"
+"0","for(miRNA in rownames(lihc_dataM)){"
+"0","  miR_row <- lihc_dataM[miRNA,]"
+"0","  name <- miRNA"
+"0","  m <- c(m, mean(miR_row))"
+"0","  sd <- c(sd, sd(miR_row))"
+"0","  pval <- c(pval, t.test(miR_row[1:49], miR_row[50:98])$p.val)"
+"0","}"
+"0","results <- cbind(m, sd, pval, results)"
+"2","Error in data.frame(..., check.names = FALSE) : 
+  arguments imply differing number of rows: 915, 0
+"

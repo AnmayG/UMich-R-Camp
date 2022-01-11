@@ -1,0 +1,2 @@
+"0","plot(sample(1:100,50,replace=F), "
+"0","     sample(30:400,50,replace=T))"

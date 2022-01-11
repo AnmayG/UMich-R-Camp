@@ -1,0 +1,2 @@
+"0","tum <- smalldataM[""miR_a"", colnames(smalldataM)[grepl(""Tumor"", colnames(smalldataM))]]"
+"0","con <- smalldataM[""miR_a"", colnames(smalldataM)[grepl(""Control"", colnames(smalldataM))]]"

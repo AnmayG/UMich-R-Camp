@@ -1,0 +1,5 @@
+"0","miR_c <- smalldataM[3,]"
+"0","miR_k <- smalldataM[11,]"
+"0",""
+"0","par(mfrow=c(1,2))"
+"0","plot(miR_a, miR_c)"

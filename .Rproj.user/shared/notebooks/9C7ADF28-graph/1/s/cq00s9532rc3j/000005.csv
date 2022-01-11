@@ -1,0 +1,4 @@
+"0","barplot(sample(1:30, 4, replace=T),"
+"0","        main=""Game 2"","
+"0","        col=c(""Light Blue"", ""Purple"", ""Pink"", ""Dark Green""),"
+"0","        ylim=c(1,40))"

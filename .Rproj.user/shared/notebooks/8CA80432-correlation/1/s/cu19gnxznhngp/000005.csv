@@ -1,0 +1,2 @@
+"0","lo <- loess(miR_t ~ miR_a)"
+"0","plot(miR_a, miR_t)"

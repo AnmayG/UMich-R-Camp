@@ -1,0 +1,3 @@
+"0","barplot(sample(1:25, 4, replace=T),"
+"0","        main=""Game 2"","
+"0","        col=c(""Light Blue"", ""Purple"", ""Pink"", ""Dark Green""))"

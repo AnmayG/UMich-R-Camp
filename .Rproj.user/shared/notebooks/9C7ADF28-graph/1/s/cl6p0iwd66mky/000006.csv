@@ -1,0 +1,4 @@
+"0",""
+"0","boxplot.matrix(log2(smalldataM[,11:20] + 1), "
+"0","               use.cols=FALSE, "
+"0","               col=rainbow(20))"

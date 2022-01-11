@@ -1,0 +1,4 @@
+"0","plot(log10(lihc_data[""hsa-miR-200a-3p"", tumor_vector]+1))
+"
+"2","Error in plot.new() : figure margins too large
+"

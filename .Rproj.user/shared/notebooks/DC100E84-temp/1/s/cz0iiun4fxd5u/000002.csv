@@ -1,0 +1,1 @@
+"0","write.table(Tum1_Con1, file=""sample1_data.txt"", sep=""\\t"", col.names = NA)"

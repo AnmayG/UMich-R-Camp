@@ -1,0 +1,2 @@
+"0","plot(log10(lihc_dataM[""hsa-miR-429"",] + 1),"
+"0","     xlab = ""Sample Number"")"

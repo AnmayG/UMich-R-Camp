@@ -1,0 +1,40 @@
+---
+title: "miRcore R session day 5 quiz"
+author: "Anmay Gupta"
+date: "7/16/2021"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# day 5 quiz
+
+## ice cream graph
+
+```{r}
+barplot(sample(20:50, 6, replace=F),
+        ylab="Number of Fans",
+        xlab="Ice Cream Flavor",
+        names.arg=c("chocolate","vanilla","strawberry","butter pecan","pistachio","cherry"),
+        main="Fans of Various Ice Cream Flavors",
+        col=c("brown","white","pink","yellow","green","purple"),
+        legend.text = c("chocolate","vanilla","strawberry","butter pecan","pistachio","cherry"))
+```
+
+## small data
+
+```{r}
+smalldata <- read.table("small_data.txt", header=1, row.names=1, stringsAsFactors = F)
+plot(smalldata[,5], smalldata[,15], xlab="Tumor 5", ylab="Control 5", main="miRna Reads of Tumor 5 vs Control 5", col="blue")
+```
+
+
+
+
+
+
+
+
+

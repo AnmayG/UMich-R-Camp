@@ -1,0 +1,29 @@
+"0","plot(smalldata[,5], smalldata[,15],
+     xlab=""Tumor 5"",
+     ylab=""Control 5"",
+     names.arg=colnames(smalldata))
+"
+"2","Warning in plot.window(...) :"
+"2"," ""names.arg"" is not a graphical parameter
+"
+"2","Warning in plot.xy(xy, type, ...) :"
+"2","
+ "
+"2"," ""names.arg"" is not a graphical parameter
+"
+"2","Warning in axis(side = side, at = at, labels = labels, ...) :"
+"2","
+ "
+"2"," ""names.arg"" is not a graphical parameter
+"
+"2","Warning in axis(side = side, at = at, labels = labels, ...) :"
+"2","
+ "
+"2"," ""names.arg"" is not a graphical parameter
+"
+"2","Warning in box(...) :"
+"2"," ""names.arg"" is not a graphical parameter
+"
+"2","Warning in title(...) :"
+"2"," ""names.arg"" is not a graphical parameter
+"

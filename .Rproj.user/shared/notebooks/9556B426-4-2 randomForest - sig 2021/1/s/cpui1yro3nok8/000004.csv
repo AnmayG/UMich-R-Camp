@@ -1,0 +1,3 @@
+"0","brca_miR_data <- as.data.frame(brca_miR_data)"
+"0","brca_miR_data <- cbind(conditions, brca_miR_data)"
+"0","brca_miR_data[1:10, 1:5]"

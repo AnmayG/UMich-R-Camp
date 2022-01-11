@@ -1,0 +1,50 @@
+"0","barplot(vta,
+        main = ""miR_a Reads in Tumor Samples"",
+        xlab=""Tumor ID"",
+        ylab=""Number of Reads"",
+        names.main=colnames(smalldataM)[1:10],
+        ylim=c(0,356000),
+        las=2,
+        cex.names=0.5,
+        cey.names=0.5)
+"
+"2","Warning in plot.window(xlim, ylim, log = log, ...) :"
+"2","
+ "
+"2"," ""names.main"" is not a graphical parameter
+"
+"2","Warning in plot.window(xlim, ylim, log = log, ...) :"
+"2","
+ "
+"2"," ""cey.names"" is not a graphical parameter
+"
+"2","Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty = axis.lty,  :"
+"2","
+ "
+"2"," ""names.main"" is not a graphical parameter
+"
+"2","Warning in axis(if (horiz) 2 else 1, at = at.l, labels = names.arg, lty = axis.lty,  :"
+"2","
+ "
+"2"," ""cey.names"" is not a graphical parameter
+"
+"2","Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...) :"
+"2","
+ "
+"2"," ""names.main"" is not a graphical parameter
+"
+"2","Warning in title(main = main, sub = sub, xlab = xlab, ylab = ylab, ...) :"
+"2","
+ "
+"2"," ""cey.names"" is not a graphical parameter
+"
+"2","Warning in axis(if (horiz) 1 else 2, cex.axis = cex.axis, ...) :"
+"2","
+ "
+"2"," ""names.main"" is not a graphical parameter
+"
+"2","Warning in axis(if (horiz) 1 else 2, cex.axis = cex.axis, ...) :"
+"2","
+ "
+"2"," ""cey.names"" is not a graphical parameter
+"
